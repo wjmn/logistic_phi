@@ -3,3 +3,4 @@ pyphi.log
 .ipynb_checkpoints/
 .DS_Store
 data/raw/
+scripts/external/
