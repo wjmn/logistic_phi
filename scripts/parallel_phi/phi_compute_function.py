@@ -1,7 +1,7 @@
 
 import os
 import sys
-sys.path.append('../functions/')
+sys.path.append('../parallel_phi/')
 import psutil
 import numpy as np
 import scipy.io as sio
