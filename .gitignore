@@ -5,3 +5,4 @@ pyphi.log
 .DS_Store
 data/raw/
 scripts/external/
+data/processed/logs_pyphi/
