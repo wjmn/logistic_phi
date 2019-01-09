@@ -1,4 +1,5 @@
 __pyphi_cache__/
+__pycache__/
 pyphi.log
 .ipynb_checkpoints/
 .DS_Store

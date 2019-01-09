@@ -3,7 +3,7 @@
 # Find total number of parameter lines (total number of jobs to be submitted across all arrays)
 lines=$(wc -l < networks_2ch) # Total number of jobs which need to be computed
 
-line_increment=4
+line_increment=2
 
 # Loop through parameter lines
 for (( line=1; line<=$lines; line=$line+$line_increment )); do

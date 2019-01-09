@@ -45,7 +45,7 @@ def calculate_phis_all_methods(data, channel_set, channels):
     
     calculate_phis(data, n_test_channels, channels, "logistic", interaction_order=0)
     
-    for i_o in range(1, channel_set):
+    for i_o in range(1, n_test_channels):
         calculate_phis(data, n_test_channels, channels, "logistic", interaction_order=i_o)
     
 
@@ -77,20 +77,20 @@ def calculate_phis(data, n_test_channels, ch_group, method, **kwargs):
     
     """
     
-    n_samples, n_channels, n_trials, n_flies, n_conds = FLY_DATA.shape
+    n_samples, n_channels, n_trials, n_flies, n_conds = data.shape
     
     tau = 1
     
-    results_dir = "../data/processed/phis/"
+    results_dir = "../../data/processed/phis/"
     
     ch_groups = itertools.combinations(range(n_channels), n_test_channels)
     
     if method == "direct":
         method_str = method
     elif method == "logistic":
+        if "interaction_order" not in kwargs:
+            raise ValueError("Must specify interaction_order if using logistic method.")
         interaction_order = kwargs.get("interaction_order")
-        if not interaction_order:
-            raise ValueError("Must specify interaction_order if using logistic method.") 
         method_str = method + str(interaction_order)
     else:
         raise ValueError("Method specified was not recognised")

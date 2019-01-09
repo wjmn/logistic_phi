@@ -29,7 +29,7 @@
 #SBATCH --qos=shortq
 
 # To receive an email when job completes or fails
-# SBATCH --mail-user=aleu6@student.monash.edu
+# SBATCH --mail-user=jwu202@student.monash.edu
 # SBATCH --mail-type=END
 # SBATCH --mail-type=FAIL
 
