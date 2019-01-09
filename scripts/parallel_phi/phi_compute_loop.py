@@ -8,7 +8,7 @@ from phi_compute_function import *
 #	1,2
 #	1,3
 #	...
-#	100,101
+#	100,10
 #	etc.
 
 
@@ -21,16 +21,15 @@ tau = 1
 pyphi.config.LOG_FILE = 'logs_pyphi/' + lines[0].strip().split(',')[0] + '.log' # Log to file specific for this script
 
 # Source directory and filename
-source_dir = '../data/'
-source_prefix = '003_SD3.00_20180513'
-source_suffix = '_binAverage1_medianSplit.mat'
+source_dir = '../../data/processed/'
+source_prefix = 'fly_data'
+source_suffix = '_binarised.npy'
 
 # Load data ############################################################################
 
 print('loading data')
 
-loaded = sio.loadmat(source_dir + source_prefix + source_suffix)
-data = loaded['df_f_binarised']
+data = np.load(source_dir + source_prefix + source_suffix)
 
 print("loaded")
 
@@ -49,10 +48,10 @@ for line in range(len(lines)):
 	
 	params = list(map(int, lines[line].strip('\r#').split(','))) # each line has '\r,' last line has '\r#' (no '\n' because the original string was split on '\n')
 	channel_set = params[0]
-	channels = params[1:]
+	channels = tuple(params[1:])
 	
 	print('computing - ' + str(channel_set) + ': ' + str(channels), flush=True)
 	
-	phi_compute(data, channel_set, channels, tau, source_suffix)
+	calculate_phis_all_methods(data, channel_set, channels)
 
 print('loop finished', flush=True)

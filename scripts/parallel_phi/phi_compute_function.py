@@ -1,4 +1,3 @@
-
 import os
 import sys
 sys.path.append('../parallel_phi/')
@@ -8,7 +7,8 @@ import scipy.io as sio
 import pyphi
 import math
 import itertools
-import phi_functions
+from phi_functions import *
+from phi_tpm_log_reg import *
 
 #https://pyphi.readthedocs.io/en/stable/configuration.html?highlight=after_computing_sia#pyphi.conf.PyphiConfig.CLEAR_SUBSYSTEM_CACHES_AFTER_COMPUTING_SIA
 #pyphi.config.MAXIMUM_CACHE_MEMORY_PERCENTAGE = 50
@@ -22,76 +22,123 @@ pyphi.config.PROGRESS_BARS = False
 pyphi.config.PARALLEL_CUT_EVALUATION = False
 
 
-def phi_compute(data, channel_set, channels, tau, source_suffix):
+def calculate_phis_all_methods(data, channel_set, channels):
+    """ Calculate phi using all methods available.
 
-	# Results directory and filename
-	results_dir = 'results/' + str(math.floor(channel_set / 1000000)) + '/' # Max files per directory = 1 million
-	results_file = "{0:0>8}".format(channel_set) + source_suffix[:len(source_suffix)-4] + '_phi3.mat' # -4 refers to length of file extension, '.mat'
+    Args:
+        data (np.ndarray): (samples, channels, trials, flies, conds) array of BINARISED data.
+        channel_set (int): ID of channel set.
+        channels (tuple of ints): Channels to be included in phi calculation (as indices of data).
+                                  Assumed to be 1-indexed, will be converted to 0-indexed.
+    
+    Returns:
+        Nothing. Instead, saves processed data as .mat files.
+    """
 
-	# Get relevant data ##################################################################################
+    ("COMPUTING {}\n".format(channel_set))
+    
+    channels = tuple(map(lambda x: x - 1, channels))
 
-	channel_indices = [x - 1 for x in channels]
-	channel_data = data[channel_indices, :]
+    n_test_channels = len(channels)
+    
+    calculate_phis(data, n_test_channels, channels, "direct")
+    
+    calculate_phis(data, n_test_channels, channels, "logistic", interaction_order=0)
+    
+    for i_o in range(1, channel_set):
+        calculate_phis(data, n_test_channels, channels, "logistic", interaction_order=i_o)
+    
 
-	# Build TPM and network ############################################################################
+def calculate_phis(data, n_test_channels, ch_group, method, **kwargs):
+    """ Calculates and saves phi values for a given number of test_channels for a given method.
+    
+    Args:
+        data (np.ndarray): (samples, channels, trials, flies, conds) array of BINARISED data.
+        n_test_channels (int): Number of channels to consider at a time. Minimum 2.
+        method (string): Method used to generate TPM. 
+                         Must be one of:
+                         - "direct"
+                         - "logistic" (requires kwarg interaction_order)
+        ch_group (tuple of ints): Channels to be included in phi calculation.
+    
+    Keyword Args:
+        interaction_order (int): Parameter used for logistic method for TPM calculation.
+    
+    Returns:
+        Nothing. 
+        Instead, saves lists of dictionaries (per channel group) as .mat files with keys:
+            i_trial
+            i_fly
+            i_cond
+            state_phis
+            tpm
+            state_counts
+            channels
+    
+    """
+    
+    n_samples, n_channels, n_trials, n_flies, n_conds = FLY_DATA.shape
+    
+    tau = 1
+    
+    results_dir = "../data/processed/phis/"
+    
+    ch_groups = itertools.combinations(range(n_channels), n_test_channels)
+    
+    if method == "direct":
+        method_str = method
+    elif method == "logistic":
+        interaction_order = kwargs.get("interaction_order")
+        if not interaction_order:
+            raise ValueError("Must specify interaction_order if using logistic method.") 
+        method_str = method + str(interaction_order)
+    else:
+        raise ValueError("Method specified was not recognised")
+    
+    # This deeply nested loop will take a long time...
+    ch_group_results = []
+    data_slice = data[:, ch_group, :, :, :]
+    for cond in range(n_conds):
+        #print("CONDITION {}".format(cond))
+        for fly in range(n_flies):
+            #print("  FLY {}".format(fly))
+            for trial in range(n_trials):
+                #print("    TRIAL {}".format(trial))
+                if method == "direct":
+                    tpm, state_counts = build_tpm_sbn(data_slice[:, :, trial, fly, cond], tau, 2)
+                else:
+                    tpm, state_counts = tpm_log_reg(data_slice[:, :, trial, fly, cond], tau, interaction_order)
 
-	# Function takes format (samples x channels)
-	tpm, state_counters = phi_functions.build_tpm_sbn(np.transpose(channel_data, axes=[1, 0]), tau, 2) # 2 - because data is binarised
+                n_states = n_test_channels ** 2
 
-	# Build the network and subsystem
-	# We are assuming full connection
-	network = pyphi.Network(tpm)
-	print("Network built", flush=True)
+                network = pyphi.Network(tpm)
+                phi = dict()
+                state_sias = np.empty((n_states), dtype=object)
+                state_phis = np.zeros((n_states))
+                for state_index in range(n_states):
+                    state = pyphi.convert.le_index2state(state_index, n_test_channels)
+                    subsystem = pyphi.Subsystem(network, state)
+                    #sia = pyphi.compute.sia(subsystem)
+                    phi_val = pyphi.compute.phi(subsystem)
+                    state_phis[state_index] = phi_val
+                    #print('      STATE {}, PHI = {}'.format(state, phi_val))
 
-	#########################################################################################
-	# Remember that the data is in the form a matrix
-	# Matrix dimensions: sample(2250) x channel(15)
+                # Store only phi values for each state
+                #phi['sias'] = state_sias
+                phi['state_phis'] = state_phis
+                phi['tpm'] = tpm
+                phi['state_counts'] = state_counts
+                phi['i_trial'] = trial
+                phi['i_fly'] = fly
+                phi['i_cond'] = cond
+                phi['channels'] = ch_group
 
-	# Determine number of system states
-	n_states = tpm.shape[0]
-	nChannels = int(math.log(n_states, 2)) # Assumes binary values
+                ch_group_results.append(phi)
 
-	# Results structure
-	phi = dict()
 
-	# Initialise results storage structures
-	state_sias = np.empty((n_states), dtype=object)
-	state_phis = np.zeros((n_states))
+    results_file = "PHI_{}_METHOD_{}_CHS_{}.mat".format(n_test_channels,
+                                                        method_str,
+                                                        "-".join(map(str, ch_group)))
 
-	# sys.exit()
-
-	# Calculate all possible phi values (number of phi values is limited by the number of possible states)
-	for state_index in range(0, n_states):
-		#print('State ' + str(state_index))
-		# Figure out the state
-		state = pyphi.convert.le_index2state(state_index, nChannels)
-		
-		# As the network is already limited to the channel set, the subsystem would have the same nodes as the full network
-		subsystem = pyphi.Subsystem(network, state)
-		
-		#sys.exit()
-		
-		# Compute phi values for all partitions
-		sia = pyphi.compute.sia(subsystem)
-		
-		#sys.exit()
-		
-		# Store phi and associated MIP
-		state_phis[state_index] = sia.phi
-		
-		# MATLAB friendly storage format (python saves json as nested dict)
-		# Store big_mip
-		#state_sias[state_index] = pyphi.jsonify.jsonify(sia)
-		
-		print('State ' + str(state_index) + ' Phi=' + str(sia.phi), flush=True)
-
-	# Store only phi values for each state
-	#phi['sias'] = state_sias
-	phi['state_phis'] = state_phis
-	phi['tpm'] = tpm
-	phi['state_counters'] = state_counters
-
-	# Save ###########################################################################
-
-	sio.savemat(results_dir + results_file, {'phi': phi}, do_compression=True, long_field_names=True)
-	print('saved ' + results_dir + results_file, flush=True)
+    sio.savemat(results_dir + results_file, {'ch_group_results': ch_group_results}, do_compression=True, long_field_names=True)
+    print('      SAVED {}\n'.format(results_dir + results_file))
