@@ -29,9 +29,9 @@
 #SBATCH --qos=shortq
 
 # To receive an email when job completes or fails
-# SBATCH --mail-user=jwu202@student.monash.edu
-# SBATCH --mail-type=END
-# SBATCH --mail-type=FAIL
+#SBATCH --mail-user=jwu202@student.monash.edu
+#SBATCH --mail-type=END
+#SBATCH --mail-type=FAIL
 
 
 # Set the file for output (stdout)
