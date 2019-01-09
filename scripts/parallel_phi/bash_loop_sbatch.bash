@@ -49,7 +49,7 @@
 
 module load python/3.6.2
 
-source ../pyphi_environment/bin/activate
+source ../../../pyphi_environment/bin/activate
 
 # Extract relevant lines to separate file
 lines=$(sed -n "${1},$((${1}+${2}-1))p;$((${1}+${2}))q" "networks_2ch")# > networks/$1
