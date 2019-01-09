@@ -29,7 +29,7 @@ def calculate_phis_all_methods(data, channel_set, channels):
         data (np.ndarray): (samples, channels, trials, flies, conds) array of BINARISED data.
         channel_set (int): ID of channel set.
         channels (tuple of ints): Channels to be included in phi calculation (as indices of data).
-                                  Assumed to be 1-indexed, will be converted to 0-indexed.
+                                  Channels should be 0-indexed (Python convention).
     
     Returns:
         Nothing. Instead, saves processed data as .mat files.
@@ -37,7 +37,7 @@ def calculate_phis_all_methods(data, channel_set, channels):
 
     ("COMPUTING {}\n".format(channel_set))
     
-    channels = tuple(map(lambda x: x - 1, channels))
+    channels = tuple(channels)
 
     n_test_channels = len(channels)
     
