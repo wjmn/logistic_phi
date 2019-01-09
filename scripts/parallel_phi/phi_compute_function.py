@@ -41,15 +41,15 @@ def calculate_phis_all_methods(data, channel_set, channels):
 
     n_test_channels = len(channels)
     
-    calculate_phis(data, n_test_channels, channels, "direct")
+    calculate_phis(data, n_test_channels, channel_set, channels, "direct")
     
-    calculate_phis(data, n_test_channels, channels, "logistic", interaction_order=0)
+    # calculate_phis(data, n_test_channels, channel_set, channels, "logistic", interaction_order=0)
     
-    for i_o in range(1, n_test_channels):
-        calculate_phis(data, n_test_channels, channels, "logistic", interaction_order=i_o)
+    for i_o in range(1, n_test_channels + 1):
+        calculate_phis(data, n_test_channels, channel_set, channels, "logistic", interaction_order=i_o)
     
 
-def calculate_phis(data, n_test_channels, ch_group, method, **kwargs):
+def calculate_phis(data, n_test_channels, channel_set, ch_group, method, **kwargs):
     """ Calculates and saves phi values for a given number of test_channels for a given method.
     
     Args:
@@ -59,6 +59,7 @@ def calculate_phis(data, n_test_channels, ch_group, method, **kwargs):
                          Must be one of:
                          - "direct"
                          - "logistic" (requires kwarg interaction_order)
+        channel_set (int): A unique integer indicating an ID for the channel group.
         ch_group (tuple of ints): Channels to be included in phi calculation.
     
     Keyword Args:
@@ -136,8 +137,9 @@ def calculate_phis(data, n_test_channels, ch_group, method, **kwargs):
                 ch_group_results.append(phi)
 
 
-    results_file = "PHI_{}_METHOD_{}_CHS_{}.mat".format(n_test_channels,
+    results_file = "PHI_{}_METHOD_{}_CHSET_{}_CHS_{}.mat".format(n_test_channels,
                                                         method_str,
+                                                                 channel_set,
                                                         "-".join(map(str, ch_group)))
 
     sio.savemat(results_dir + results_file, {'ch_group_results': ch_group_results}, do_compression=True, long_field_names=True)
