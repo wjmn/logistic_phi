@@ -50,7 +50,7 @@ for line in range(len(lines)):
 	channel_set = params[0]
 	channels = tuple(params[1:])
 	
-	print('computing - ' + str(channel_set) + ': ' + str(channels), flush=True)
+	print('COMPUTING - ' + str(channel_set) + ': ' + str(channels), flush=True)
 	
 	calculate_phis_all_methods(data, channel_set, channels)
 
