@@ -29,9 +29,9 @@
 #SBATCH --qos=shortq
 
 # To receive an email when job completes or fails
-#SBATCH --mail-user=jwu202@student.monash.edu
-#SBATCH --mail-type=END
-#SBATCH --mail-type=FAIL
+# SBATCH --mail-user=jwu202@student.monash.edu
+# SBATCH --mail-type=END
+# SBATCH --mail-type=FAIL
 
 
 # Set the file for output (stdout)
@@ -55,7 +55,7 @@ source ../../../pyphi_environment/bin/activate
 lines=$(sed -n "${1},$((${1}+${2}-1))p;$((${1}+${2}))q" "networks_2ch")# > networks/$1
 
 # Run python loop script using small networks-file
-time python -W ignore -m cProfile -s tottime phi_compute_loop.py "${lines}"
+time python3 -W ignore -m cProfile -s tottime phi_compute_loop.py "${lines}"
 #time python -W ignore -m cProfile -s tottime phi_compute_loop.py 1 $2 networks/ $1
 
 # Run python loop script

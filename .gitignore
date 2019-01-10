@@ -6,3 +6,7 @@ pyphi.log
 data/raw/
 scripts/external/
 data/processed/logs_pyphi/
+data/processed/phis/
+scripts/parallel_phi/networks/
+scripts/parallel_phi/logs/
+job_list
