@@ -35,19 +35,19 @@ def calculate_phis_all_methods(data, channel_set, channels):
         Nothing. Instead, saves processed data as .mat files.
     """
 
-    ("COMPUTING {}\n".format(channel_set))
-    
     channels = tuple(channels)
 
     n_test_channels = len(channels)
     
-    calculate_phis(data, n_test_channels, channel_set, channels, "direct")
     
     # calculate_phis(data, n_test_channels, channel_set, channels, "logistic", interaction_order=0)
     
-    for i_o in range(1, n_test_channels + 1):
-        calculate_phis(data, n_test_channels, channel_set, channels, "logistic", interaction_order=i_o)
+    # for i_o in range(1, n_test_channels + 1):
+    #    calculate_phis(data, n_test_channels, channel_set, channels, "logistic", interaction_order=i_o)
     
+    calculate_phis(data, n_test_channels, channel_set, channels, "logistic", interaction_order=n_test_channels)
+
+    calculate_phis(data, n_test_channels, channel_set, channels, "direct")
 
 def calculate_phis(data, n_test_channels, channel_set, ch_group, method, **kwargs):
     """ Calculates and saves phi values for a given number of test_channels for a given method.
@@ -78,13 +78,13 @@ def calculate_phis(data, n_test_channels, channel_set, ch_group, method, **kwarg
     
     """
     
+    print("USING {}".format(method))
+
     n_samples, n_channels, n_trials, n_flies, n_conds = data.shape
     
     tau = 1
     
     results_dir = "../../data/processed/phis/"
-    
-    ch_groups = itertools.combinations(range(n_channels), n_test_channels)
     
     if method == "direct":
         method_str = method
