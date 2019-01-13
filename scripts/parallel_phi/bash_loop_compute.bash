@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Find total number of parameter lines (total number of jobs to be submitted across all arrays)
-lines=$(wc -l < networks_4ch_small) # Total number of jobs which need to be computed
+lines=$(wc -l < networks_3ch_missing) # Total number of jobs which need to be computed
 
 line_increment=1
 
