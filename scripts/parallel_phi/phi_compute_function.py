@@ -42,9 +42,10 @@ def calculate_phis_all_methods(data, channel_set, channels):
     
     # calculate_phis(data, n_test_channels, channel_set, channels, "logistic", interaction_order=0)
     
-    for i_o in range(1, n_test_channels + 1):
-        calculate_phis(data, n_test_channels, channel_set, channels, "logistic", interaction_order=i_o)
+    # for i_o in range(1, n_test_channels + 1):
+    #    calculate_phis(data, n_test_channels, channel_set, channels, "logistic", interaction_order=i_o)
     
+    calculate_phis(data, n_test_channels, channel_set, channels, "logistic", interaction_order=n_test_channels)
 
     calculate_phis(data, n_test_channels, channel_set, channels, "direct")
 

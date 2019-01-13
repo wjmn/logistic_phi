@@ -24,7 +24,7 @@
 #SBATCH --mem-per-cpu=8000
 
 # Set your minimum acceptable walltime, format: day-hours:minutes:seconds
-#SBATCH --time=3-12:00:00
+#SBATCH --time=5-12:00:00
 
 #SBATCH --qos=normal
 
