@@ -1,0 +1,39 @@
+slurmstepd: error: *** JOB 7842753 ON m3i004 CANCELLED AT 2019-01-13T20:13:21 DUE TO TIME LIMIT ***
+slurmstepd: error: *** JOB 7842754 ON m3i004 CANCELLED AT 2019-01-13T20:13:21 DUE TO TIME LIMIT ***
+
+real	2282m15.570s
+user	2250m45.170s
+sys	31m3.265s
+
+real	3256m51.728s
+user	3225m45.978s
+sys	23m16.545s
+
+real	3527m8.433s
+user	3490m19.208s
+sys	35m35.070s
+
+real	3217m25.420s
+user	3190m19.817s
+sys	26m0.601s
+
+real	3273m26.857s
+user	3245m59.705s
+sys	26m30.021s
+
+real	3453m12.428s
+user	3399m34.797s
+sys	30m30.381s
+
+real	2268m11.986s
+user	2240m13.503s
+sys	27m28.207s
+slurmstepd: error: *** JOB 7842750 ON m3i030 CANCELLED AT 2019-01-14T07:13:21 DUE TO TIME LIMIT ***
+
+real	2349m17.844s
+user	2320m52.447s
+sys	27m59.137s
+
+real	2342m0.485s
+user	2313m9.488s
+sys	28m27.426s
