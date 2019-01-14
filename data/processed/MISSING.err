@@ -1,0 +1,142 @@
+
+real	28m29.296s
+user	24m34.255s
+sys	3m53.707s
+slurmstepd: error: *** JOB 7860191 ON m3i034 CANCELLED AT 2019-01-14T10:39:51 ***
+
+real	28m11.600s
+user	24m12.065s
+sys	3m58.232s
+slurmstepd: error: *** JOB 7860192 ON m3i034 CANCELLED AT 2019-01-14T10:39:50 ***
+
+real	28m54.243s
+user	24m56.491s
+sys	3m55.866s
+slurmstepd: error: *** JOB 7860193 ON m3i034 CANCELLED AT 2019-01-14T10:39:50 ***
+
+real	28m13.073s
+user	24m22.175s
+sys	3m49.595s
+
+real	37m17.914s
+user	32m55.592s
+sys	4m2.135s
+slurmstepd: error: *** JOB 7860194 ON m3i034 CANCELLED AT 2019-01-14T10:39:50 ***
+
+real	28m20.254s
+user	24m30.348s
+sys	3m48.255s
+
+real	940m45.321s
+user	928m56.892s
+sys	11m19.162s
+slurmstepd: error: *** JOB 7860195 ON m3i034 CANCELLED AT 2019-01-14T10:39:50 ***
+
+real	27m52.477s
+user	24m2.149s
+sys	3m48.478s
+slurmstepd: error: *** JOB 7860196 ON m3i034 CANCELLED AT 2019-01-14T10:39:51 ***
+
+real	28m5.006s
+user	24m19.672s
+sys	3m44.128s
+slurmstepd: error: *** JOB 7860197 ON m3i034 CANCELLED AT 2019-01-14T10:39:50 ***
+
+real	27m55.639s
+user	24m9.970s
+sys	3m44.252s
+slurmstepd: error: *** JOB 7860198 ON m3i034 CANCELLED AT 2019-01-14T10:39:50 ***
+
+real	28m17.464s
+user	24m20.753s
+sys	3m55.430s
+slurmstepd: error: *** JOB 7860199 ON m3i034 CANCELLED AT 2019-01-14T10:39:50 ***
+
+real	28m20.515s
+user	24m21.238s
+sys	3m57.564s
+slurmstepd: error: *** JOB 7860200 ON m3i034 CANCELLED AT 2019-01-14T10:39:50 ***
+slurmstepd: error: *** JOB 7860182 ON m3a010 CANCELLED AT 2019-01-14T10:39:50 ***
+
+real	29m0.082s
+user	25m9.518s
+sys	3m47.248s
+slurmstepd: error: *** JOB 7860201 ON m3i034 CANCELLED AT 2019-01-14T10:39:50 ***
+
+real	28m7.613s
+user	24m19.913s
+sys	3m46.524s
+slurmstepd: error: *** JOB 7860202 ON m3i034 CANCELLED AT 2019-01-14T10:39:50 ***
+
+real	28m19.135s
+user	24m27.474s
+sys	3m50.412s
+slurmstepd: error: *** JOB 7860203 ON m3i034 CANCELLED AT 2019-01-14T10:39:50 ***
+
+real	28m11.265s
+user	24m10.252s
+sys	4m0.069s
+
+real	38m31.441s
+user	34m2.231s
+sys	4m8.287s
+slurmstepd: error: *** JOB 7860204 ON m3i034 CANCELLED AT 2019-01-14T10:39:50 ***
+
+real	28m27.093s
+user	24m26.765s
+sys	3m59.267s
+
+real	950m21.936s
+user	939m38.141s
+sys	10m20.533s
+slurmstepd: error: *** JOB 7860205 ON m3i034 CANCELLED AT 2019-01-14T10:39:50 ***
+
+real	28m10.576s
+user	24m16.523s
+sys	3m52.494s
+slurmstepd: error: *** JOB 7860206 ON m3i034 CANCELLED AT 2019-01-14T10:39:50 ***
+
+real	28m27.678s
+user	24m27.884s
+sys	3m58.225s
+slurmstepd: error: *** JOB 7860207 ON m3i034 CANCELLED AT 2019-01-14T10:39:51 ***
+slurmstepd: error: *** JOB 7860183 ON m3a010 CANCELLED AT 2019-01-14T10:39:50 ***
+
+real	37m14.405s
+user	33m4.953s
+sys	3m46.446s
+
+real	931m8.451s
+user	920m40.005s
+sys	10m8.929s
+slurmstepd: error: *** JOB 7860184 ON m3a010 CANCELLED AT 2019-01-14T10:39:50 ***
+
+real	37m44.120s
+user	33m24.378s
+sys	3m55.399s
+slurmstepd: error: *** JOB 7860185 ON m3a010 CANCELLED AT 2019-01-14T10:39:50 ***
+
+real	38m17.774s
+user	34m8.948s
+sys	3m47.005s
+slurmstepd: error: *** JOB 7860186 ON m3d012 CANCELLED AT 2019-01-14T10:39:50 ***
+
+real	38m13.739s
+user	34m7.062s
+sys	3m44.838s
+slurmstepd: error: *** JOB 7860187 ON m3d012 CANCELLED AT 2019-01-14T10:39:50 ***
+
+real	37m53.366s
+user	33m48.840s
+sys	3m44.858s
+slurmstepd: error: *** JOB 7860188 ON m3d012 CANCELLED AT 2019-01-14T10:39:50 ***
+
+real	28m38.287s
+user	24m43.094s
+sys	3m53.030s
+slurmstepd: error: *** JOB 7860189 ON m3i034 CANCELLED AT 2019-01-14T10:39:50 ***
+
+real	28m2.723s
+user	24m16.012s
+sys	3m45.327s
+slurmstepd: error: *** JOB 7860190 ON m3i034 CANCELLED AT 2019-01-14T10:39:51 ***

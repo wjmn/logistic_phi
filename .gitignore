@@ -13,3 +13,5 @@ job_list
 phi_2s/
 phi_3s/
 phi_4s/
+phi_3s_missing/
+ddata.h5

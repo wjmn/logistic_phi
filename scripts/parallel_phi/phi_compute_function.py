@@ -110,8 +110,8 @@ def calculate_phis(data, n_test_channels, channel_set, ch_group, method, **kwarg
                 else:
                     tpm, state_counts = tpm_log_reg(data_slice[:, :, trial, fly, cond], tau, interaction_order)
 
-                # n_states = 2 ** n_test_channels
-                n_states = n_test_channels ** 2 # doing this for 3 channels for consistency
+                n_states = 2 ** n_test_channels
+                # n_states = n_test_channels ** 2 # doing this for 3 channels for consistency
 
                 network = pyphi.Network(tpm)
                 phi = dict()

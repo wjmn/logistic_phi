@@ -18,7 +18,7 @@ tau = 1
 
 # Setup ############################################################################
 
-pyphi.config.LOG_FILE = '../../data/processed/logs_pyphi/' + lines[0].strip().split(',')[0] + '.log' # Log to file specific for this script
+pyphi.config.LOG_FILE = '../../data/processed/logs_pyphi/' + lines[0].strip().split(',')[0] + '_4ch.log' # Log to file specific for this script
 
 # Source directory and filename
 source_dir = '../../data/processed/'
