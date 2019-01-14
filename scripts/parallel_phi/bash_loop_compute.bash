@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Find total number of parameter lines (total number of jobs to be submitted across all arrays)
-lines=$(wc -l < networks_3ch_missing) # Total number of jobs which need to be computed
+lines=$(wc -l < networks_4ch_missing) # Total number of jobs which need to be computed
 
 line_increment=1
 
@@ -19,6 +19,6 @@ for (( line=1; line<=$lines; line=$line+$line_increment )); do
 	done
 	
 	echo "array submitting (from line $line)"
-	sbatch --job-name="${line}" --output="logs/${line}.out" --error="logs/${line}.err" bash_loop_sbatch.bash $line $line_increment
+	sbatch --job-name="${line}_4ch" --output="logs/${line}_4ch.out" --error="logs/${line}_4ch.err" bash_loop_sbatch.bash $line $line_increment
 	echo "submitted"
 done
