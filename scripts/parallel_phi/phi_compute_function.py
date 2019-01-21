@@ -38,16 +38,13 @@ def calculate_phis_all_methods(data, channel_set, channels):
     channels = tuple(channels)
 
     n_test_channels = len(channels)
-    
+
+    calculate_phis(data, n_test_channels, channel_set, channels, "direct")
     
     # calculate_phis(data, n_test_channels, channel_set, channels, "logistic", interaction_order=0)
     
-    # for i_o in range(1, n_test_channels + 1):
-    #    calculate_phis(data, n_test_channels, channel_set, channels, "logistic", interaction_order=i_o)
-    
-    calculate_phis(data, n_test_channels, channel_set, channels, "logistic", interaction_order=n_test_channels)
-
-    calculate_phis(data, n_test_channels, channel_set, channels, "direct")
+    for i_o in range(1, n_test_channels + 1):
+        calculate_phis(data, n_test_channels, channel_set, channels, "logistic", interaction_order=i_o)
 
 def calculate_phis(data, n_test_channels, channel_set, ch_group, method, **kwargs):
     """ Calculates and saves phi values for a given number of test_channels for a given method.

@@ -24,7 +24,7 @@
 #SBATCH --mem-per-cpu=8000
 
 # Set your minimum acceptable walltime, format: day-hours:minutes:seconds
-#SBATCH --time=5-12:00:00
+#SBATCH --time=6-20:00:00
 
 #SBATCH --qos=normal
 
@@ -52,7 +52,7 @@ module load python/3.6.2
 source ../../../pyphi_environment/bin/activate
 
 # Extract relevant lines to separate file
-lines=$(sed -n "${1},$((${1}+${2}-1))p;$((${1}+${2}))q" "networks_4ch_missing")# > networks/$1
+lines=$(sed -n "${1},$((${1}+${2}-1))p;$((${1}+${2}))q" "networks_4ch_extra")# > networks/$1
 
 # Run python loop script using small networks-file
 time python3 -W ignore -m cProfile -s tottime phi_compute_loop.py "${lines}"
